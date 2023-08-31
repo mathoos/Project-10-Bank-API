@@ -1,6 +1,11 @@
-// import { configureStore } from "@reduxjs/toolkit"
-// import rootReducer from './reducers'; 
+import { configureStore } from "@reduxjs/toolkit"
 
-// const store = configureStore({rootReducer})
+import userReducer from "./Slice"
+import serverAPIReducer from "./Server"
 
-// export default store;
+export const store = configureStore({
+    reducer: {
+        user: userReducer,
+        serverAPI: serverAPIReducer,
+    },
+})
