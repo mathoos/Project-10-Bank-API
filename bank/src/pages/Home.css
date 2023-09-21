@@ -252,7 +252,7 @@ html {
     flex: 1;
   }
   
-  .edit-button {
+  .edit-button, .cancel-button {
     border-color: #00bc77;
     background-color: #00bc77;
     color: #fff;

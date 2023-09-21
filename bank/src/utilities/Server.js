@@ -51,6 +51,35 @@ export const getUserProfile = async (token) => {
 }
 
 
+export const updateUserProfile = async (token, firstName, lastName) => {
+    try {
+        const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+            method: "PUT",
+            headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+            firstName: firstName,
+            lastName: lastName,
+            }),
+        });
+    
+        const resJson = await response.json();
+    
+        if (resJson.status === 200) {
+            return true; // La mise à jour a réussi
+        } 
+        else {
+            return false; // La mise à jour a échoué
+        }
+    } 
+    catch (err) {
+        console.error(err);
+        return false; // Une erreur s'est produite
+    }
+};
+
 
 
 
