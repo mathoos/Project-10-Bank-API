@@ -1,34 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit"
+import {createSlice} from "@reduxjs/toolkit";
 
-
-// état initial du slice qui stocke les informations sur l'utilisateur
+// Création de l'état initial du Slice défini sur null 
 const initialState = {
-    isLogged: false,
-    logFailed: false,
+    token: null,
+    user: null,
 }
 
-// Création du slice
+// Création du Slice
 const userSlice = createSlice({
-    name: "user", // nom du slice
-    initialState, // état initial du slice
-    reducers: { 
-        login: (state) => { // Action qui indique que l'utilisateur s'est connecté avec succès
-            state.isLogged = true // on passe isLoged à true
-            state.logFailed = false
+    name: 'user', // un nom pour générer automatiquement des noms d'action basés sur le nom du Slice
+    initialState, // un état initial
+    reducers: { // des reducers qui modifient l'état du Slice en réponse à des actions
+
+        // Reducer pour mettre à jour le token
+        setToken(state, action) { 
+            state.token = action.payload // action.payload permet d'obtenir les données associées à l'action
         },
 
-        apierror: (state) => { // Erreur lors de la requête API
-            state.logFailed = true // la connexion a échoué
-        }, 
-    },
+        // Reducer pour mettre à jour le user
+        setUser(state, action) {
+            state.user = action.payload
+        }
+    }
 })
 
-// Actions
-export const { login, logout, apierror } = userSlice.actions
-
-// Selectors pour accéder à des parties spécifique de l'état global
-export const selectIsLogged = (state) => state.user.isLogged //Récupérer le statut de connexion de l'utilisateur
-export const selectLogFailed = (state) => state.user.logFailed //Récupérer le statut d'erreur de connexion
-export const selectUserName = (state) => state.user.email //Récupérer le mail de l'utilisateur
+export const {setToken, setUser} = userSlice.actions
 
 export default userSlice.reducer

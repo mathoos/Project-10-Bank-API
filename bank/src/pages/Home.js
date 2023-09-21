@@ -1,16 +1,16 @@
-import Header from '../components/Header';
+import Navbar from '../components/Navbar'
 import Footer from '../components/Footer';
-
-import './Home.css'
 
 import chat from '../img/icon-chat.png'
 import money from '../img/icon-money.png'
 import security from '../img/icon-security.png'
 
+import './Home.css'
+
 function Home() {
     return (
         <div>
-            <Header/>
+            <Navbar/>
             <main>
                 <div className="hero">
                     <section className="hero-content">

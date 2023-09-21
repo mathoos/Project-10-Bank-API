@@ -1,90 +1,54 @@
-import axios from "axios";
-import { createSlice } from "@reduxjs/toolkit";
-import { login, apierror } from "./Slice";
+// On défini une URL de base de votre API
+const API_BASE_URL = "http://localhost:3001/api/v1";
 
 
-axios.defaults.baseURL = "http://localhost:3001/api/v1/user";
-
-// Statut initial
-const initialState = {
-    status: "void",
-    data: null,
-    error: null,
-}
-
-const serverAPISlice = createSlice({
-    name: "serverAPI",
-    initialState,
-    reducers: {
-        init: (state) => {
-            state.status = "void";
-            state.data = null;
-        },
-
-        setPending: (state) => {
-            if (state.status === "void" || state.status === "rejected") {
-                state.status = "pending";
-                state.error = null;
-            }
-        },
-
-        setData: (state, action) => {
-            state.data = action.payload;
-            state.status = "resolved";
-        },
-        
-        setError: (state, action) => {
-            state.error = action.payload;
-            state.data = action.payload;
-            state.status = "rejected";
-        },
-    },
-})
-
-export const { init, setPending, setData, setError } = serverAPISlice.actions;
-
-export const selectStatus = (state) => state.serverAPI.status;
-
-
-const request = async (dispatch, getState, url, method, payload) => {
-    const { status } = getState().serverAPI;
-
-    if (status === "pending") {
-        return;
-    }
-
-    dispatch(setPending());
-
+// Fonction pour effectuer la requête de connexion
+export const loginUser = async (email, password) => {
     try {
-        const response = await method(url, payload);
-        const data = await response.data;
-        dispatch(setData(data.body));
+        // On envoie une requête de connexion POST à l'API de connexion avec les données de l'utilisateur saisies dans le formulaire
+        const response = await fetch(`${API_BASE_URL}/user/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        });
+
+        // On traite la réponse de l'API
+        const responseData = await response.json();
+        return responseData;
     } 
+
     catch (error) {
-        console.log(error.message);
-        dispatch(setError(error.message));
-        dispatch(apierror());
+        console.error("Erreur lors de la requête de connexion :", error);
+        throw error;
     }
 }
 
 
-const postRequest = async (dispatch, getState, dispatchAction) => {
-    const { status, data } = getState().serverAPI;
+// Fonction pour effectuer la requête de récupération du profil de l'utilisateur
+export const getUserProfile = async (token) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/user/profile`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
 
-    if (status === "resolved" && dispatchAction) {
-        dispatch(dispatchAction(data));
+        const responseData = await response.json();
+        return responseData;
+    } 
+
+    catch (error) {
+        console.error("Erreur lors de la requête de profil de l'utilisateur :", error);
+        throw error;
     }
-
-    dispatch(init());
-};
-
-// Actions API pour faire les requêtes et gérer les réponses
-export const APILogin = (credentials) => async (dispatch, getState) => {
-    await request(dispatch, getState, "/login", axios.post, credentials);
-    postRequest(dispatch, getState, login);
 }
-
-export default serverAPISlice.reducer;
 
 
 
