@@ -264,6 +264,30 @@ html {
     color: #fff;
     margin-bottom: 2rem;
   }
+
+  .header-edit{
+    display : flex;
+    flex-direction: column;
+    width : fit-content;
+    margin : auto;
+    gap : 2vw;
+    padding : 2vw;
+  }
+
+  .header-form{
+    display : flex;
+    gap : 2vw;
+  }
+
+  .header-form input{
+    height : 50px;
+  }
+
+  .header-save-form{
+    display : flex;
+    gap : 2vw;
+    margin : auto;
+  }
   
   .transaction-button {
     display: block;

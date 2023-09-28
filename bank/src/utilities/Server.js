@@ -1,4 +1,4 @@
-// On défini une URL de base de votre API
+// On défini une URL de base pour l'API
 const API_BASE_URL = "http://localhost:3001/api/v1";
 
 
@@ -56,12 +56,12 @@ export const updateUserProfile = async (token, firstName, lastName) => {
         const response = await fetch("http://localhost:3001/api/v1/user/profile", {
             method: "PUT",
             headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
+                firstName: firstName,
+                lastName: lastName,
             }),
         });
     

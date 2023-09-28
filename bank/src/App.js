@@ -7,7 +7,6 @@ import Login from './pages/Login'
 import User from './pages/User'
 
 function App() {
-
     
     return (
         <Router>

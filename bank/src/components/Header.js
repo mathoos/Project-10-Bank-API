@@ -32,7 +32,7 @@ const Header = () => {
 
     const saveName = async (e) => {
         e.preventDefault();
-        if (hasFirstName === true && hasLastName === true) { // Si les champs sont remplis
+        if (hasFirstName && hasLastName) { // Si les champs sont remplis
             const updateSuccess = await updateUserProfile(token, userFirstName, userLastName); // On appelle updateUserProfile 
         
             if (updateSuccess) { // Si la mise à jour est réussie
@@ -47,7 +47,7 @@ const Header = () => {
     }
 
     
-    if(isEditMode === false) {
+    if(!isEditMode) {
         return (
             <div className="header">
                 {user && (<h1>Welcome back<br/>{user.firstName} {user.lastName}!</h1>)}
@@ -56,10 +56,11 @@ const Header = () => {
         )
     } 
     
-    else {
-        return (
-            <div className="header">
-                <form>
+   
+    return (
+        <div className="header">
+            <div className="header-edit">
+                <form className="header-form">
                     <label htmlFor="firstname">
                         <input type="text" id="firstname" placeholder={user.firstName} onChange={changeName}/>
                     </label>
@@ -67,13 +68,14 @@ const Header = () => {
                         <input type="text" id="lastname" placeholder={user.lastName} onChange={changeName}/>
                     </label>  
                 </form>
-                <div className="edit-button-container">
+                <div className="header-save-form">
                     <button className="edit-button" onClick={saveName}>Save Name</button>
                     <button className="cancel-button" onClick={() => setIsEditMode(false)}>Cancel</button>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
+    
 }
 
 
