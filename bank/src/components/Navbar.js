@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux"
 
 import {setToken, setUser} from "../utilities/Slice"
 
+
 const Navbar = () =>{
 
     // J'extraie la propriété user de l'état global du store qui contient les informations sur l'utilisateur connecté
@@ -13,10 +14,12 @@ const Navbar = () =>{
     const dispatch = useDispatch()
 
     // Je réinitialise les données de l'utilisateur à null
-    const logOut = () => {
-        dispatch(setUser(null))
-        dispatch(setToken(null))
-    }
+    const logOut = () => {   
+        localStorage.removeItem('authToken'); // On supprime le token du localStorage
+        // On réinitialise le store
+        dispatch(setUser(null));
+        dispatch(setToken(null));
+    };
 
     return(   
         <nav className="main-nav">

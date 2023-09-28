@@ -36,7 +36,8 @@ const Header = () => {
             const updateSuccess = await updateUserProfile(token, userFirstName, userLastName); // On appelle updateUserProfile 
         
             if (updateSuccess) { // Si la mise à jour est réussie
-                dispatch(setUser({...user, firstName: userFirstName, lastName: userLastName,})); // on met à jour les nouvelles informations
+                // on met à jour les nouvelles informations de user
+                dispatch(setUser({...user, firstName: userFirstName, lastName: userLastName,})); 
                 setIsEditMode(false); // on désactive le mode édition
             } 
             else {

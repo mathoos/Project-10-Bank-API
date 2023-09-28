@@ -68,15 +68,15 @@ export const updateUserProfile = async (token, firstName, lastName) => {
         const resJson = await response.json();
     
         if (resJson.status === 200) {
-            return true; // La mise à jour a réussi
+            return true; 
         } 
         else {
-            return false; // La mise à jour a échoué
+            return false; 
         }
     } 
     catch (err) {
         console.error(err);
-        return false; // Une erreur s'est produite
+        return false; 
     }
 };
 

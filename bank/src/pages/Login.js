@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 
 import { loginUser } from "../utilities/Server";
 
@@ -13,18 +13,16 @@ function SignIn() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [message, setMessage] = useState("")
+    const [rememberMe, setRememberMe] = useState(false); // État pour se souvenir de l'utilisateur
 
-    const token = useSelector((state)=>state.user.token) // On extraie la valeur du token à partir du store
+    const handleRememberMeChange = (e) => {
+        setRememberMe(e.target.checked);
+    };
 
     const dispatch = useDispatch()
-
     const navigate = useNavigate()
-    
-    useEffect(() => {
-        if(token !== null) { //Si un token existe, on redirige l'utilisateur vers la page /user 
-            navigate('/user') // Sûrement pour le remember me local Storage
-        }
-    })
+
+
 
 
     let handleSubmit = async (e) => {
@@ -35,12 +33,19 @@ function SignIn() {
         
             if (response.status === 200) { // Si la réponse est valide
                 const token = response.body.token; // On extraie le token
-                dispatch(setToken(token)); // On le stocke dans le store
+                // Stocker le token dans le store
+                    dispatch(setToken(token));
+                if (rememberMe) {
+                    // Stocker le token dans le localStorage
+                    localStorage.setItem('authToken', token);
+                } 
+            
                 navigate("/user"); // On dirige l'utilisateur vers sa page
             } 
+            
 
             else {
-                setMessage("Invalid email or password"); // Sinon on indique un message d'erreur
+                setMessage("L'authentification a échouée."); // Sinon on indique un message d'erreur
             }
         } 
 
@@ -67,7 +72,7 @@ function SignIn() {
                         <input type='password' id='password' onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                     <div className='input-remember'>
-                        <input type='checkbox' id='remember-me'/>
+                        <input type='checkbox' id='remember-me' checked={rememberMe} onChange={handleRememberMeChange}/>
                         <label htmlFor='remember-me'>Remember me</label>
                     </div>
                     <div className="message">{message ? <p>{message}</p> : null}</div>

@@ -1,25 +1,22 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from "react-redux";
-import { store } from "./utilities/Store"
 
-import Home from './pages/Home';
-import Login from './pages/Login'
-import User from './pages/User'
+import App from './App';
+import { Provider } from 'react-redux';
+import { store } from "./utilities/Store"
+import { setToken } from "./utilities/Slice";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+// Chargement initial du token depuis le localStorage
+const storedToken = localStorage.getItem('authToken');
+if (storedToken) {
+    store.dispatch(setToken(storedToken));
+}
+
 root.render(
-	<Provider store={store}>
-		<React.StrictMode>	 
-			<Router>
-				<Routes>      
-					<Route path="/" element={<Home/>}/>
-					<Route path="/login" element={<Login/>}/>
-					<Route path="/user" element={<User/>}/>
-				</Routes>
-			</Router>
-		</React.StrictMode>
-	</Provider>
-)
+    <Provider store={store}>
+        <App />
+    </Provider>
+);
+
