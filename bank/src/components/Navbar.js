@@ -9,8 +9,6 @@ const Navbar = () =>{
 
     // J'extraie la propriété user de l'état global du store qui contient les informations sur l'utilisateur connecté
     const user = useSelector((state)=>state.user.user)
-    console.log(user)
-
     const dispatch = useDispatch()
 
     // Je réinitialise les données de l'utilisateur à null

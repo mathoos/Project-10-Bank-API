@@ -22,9 +22,6 @@ function SignIn() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-
-
-
     let handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -34,7 +31,7 @@ function SignIn() {
             if (response.status === 200) { // Si la réponse est valide
                 const token = response.body.token; // On extraie le token
                 // Stocker le token dans le store
-                    dispatch(setToken(token));
+                dispatch(setToken(token));
                 if (rememberMe) {
                     // Stocker le token dans le localStorage
                     localStorage.setItem('authToken', token);
@@ -42,8 +39,6 @@ function SignIn() {
             
                 navigate("/user"); // On dirige l'utilisateur vers sa page
             } 
-            
-
             else {
                 setMessage("L'authentification a échouée."); // Sinon on indique un message d'erreur
             }
