@@ -10,7 +10,7 @@ import './Home.css'
 
 function Home() {
     return (
-        <div>
+        <div className="body">
             <Navbar/>
             <main>
                 <div className="hero">

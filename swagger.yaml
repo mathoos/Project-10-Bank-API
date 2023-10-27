@@ -9,33 +9,7 @@ externalDocs:
   url: https://github.com/mathoos/Project-10-Bank-API
 servers:
   - url: http://localhost:3001/api/v2
-
-
-    
-paths:
-  /categories:
-    get:
-      tags:
-        - Categories
-      summary: Get an overview of all user accounts with their total balances.
-      description: Returns a list of all user accounts with their total balances.
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Categories'      
-        '401':
-          description: Access unauthorized
-        '500':
-          description : unexpected server error
-      security:
-        - bank_auth:
-            - read:accounts
-            
+      
             
   /accounts:
     get:
@@ -186,7 +160,7 @@ paths:
         - bank_auth:
           - read:accounts
           
-    patch:
+    put:
       tags:
         - Transactions
       summary: Update the category of a specific transaction or update the note of a specific transaction

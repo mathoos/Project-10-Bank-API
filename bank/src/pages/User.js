@@ -35,11 +35,13 @@ const User = () => {
 
 
     return (
-        <main className="main bg-dark">
-            <Navbar />
-            <Header />
-            <Account />
-            <Footer />
+        <main className="body">
+            <Navbar/>
+            <div className="main bg-dark">
+                <Header/>
+                <Account/>
+            </div>        
+            <Footer/>
         </main>
     )
 }
