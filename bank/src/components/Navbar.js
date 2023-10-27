@@ -1,8 +1,8 @@
-import Logo from "../img/argentBankLogo.png"
-import {Link} from "react-router-dom"
-import {useDispatch, useSelector} from "react-redux"
-
-import {setToken, setUser} from "../utilities/Slice"
+import Logo from "../img/argentBankLogo.png";
+import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setToken, setUser} from "../utilities/Slice";
+import 'font-awesome/css/font-awesome.min.css';
 
 
 const Navbar = () =>{
